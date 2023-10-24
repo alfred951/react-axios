@@ -22,8 +22,6 @@ function App() {
     })
   }
 
-  console.log(filterProducts())
-
   return (
     <>
       <Header filters={filters} setFilters={setFilters} />
