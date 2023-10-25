@@ -1,26 +1,28 @@
 /* eslint-disable react/prop-types */
-import { AddToCartIcon } from '../Icons/Icons';
 import './styles.css'
+import ProductDetail from '../ProductDetail/ProductDetail';
+import { useContext } from 'react';
+import { ProductContext } from '../../Context/ProductContext';
 
-const Products = ({ products }) => {
+const Products = () => {
+    const {products, filters } = useContext(ProductContext)
+
+    const filterProducts = (newProducts) => {
+        return newProducts.filter(product => {
+        return (
+            product.price >= filters.minPrice &&
+            (
+                filters.category === 'all' ||
+                product.category === filters.category
+            )
+        )
+        })
+    }
     return (
         <main className='products'>
             <ul>
-                {products.map(product => (
-                    <li key={product.id}>
-                        <img
-                            src={product.thumbnail}
-                            alt={product.title}
-                        />
-                        <div>
-                            <strong>{product.title}</strong> - ${product.price}
-                        </div>
-                        <div>
-                            <button>
-                                <AddToCartIcon />
-                            </button>
-                        </div>
-                    </li>
+                {filterProducts(products).map(product => (
+                    <ProductDetail  key={product.id} item={product} />
                 ))}
             </ul>
         </main>

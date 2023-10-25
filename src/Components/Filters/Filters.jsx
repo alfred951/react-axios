@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useId } from 'react'
+import { useContext, useId } from 'react'
 import './styles.css'
+import { ProductContext } from '../../Context/ProductContext';
 
-const Filters = ({ filters, setFilters }) => {
+const Filters = () => {
+    const { filters, setFilters } = useContext(ProductContext)
 
     const minPriceFilterId = useId()
     const categoryFilterId = useId()
